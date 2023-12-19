@@ -1,5 +1,7 @@
 const todoList = require("../todo");
 
+
+
 const { all, add, markAsComplete, overdue, dueToday, dueLater } = todoList();
 
 describe("TodoList test suites", () => {
@@ -15,6 +17,8 @@ describe("TodoList test suites", () => {
       dueDate: new Date(new Date().setDate(new Date().getDate() - 1))
         .toISOString()
         .split("T")[0],
+
+      
     });
     add({
       title: "Test todo1 tomorrow",
@@ -24,6 +28,7 @@ describe("TodoList test suites", () => {
         .split("T")[0],
     });
   });
+  
   test("Checks creating a new todo", () => {
     const itemCount = all.length;
     // expect(all.length).toBe(itemCount)
@@ -41,6 +46,8 @@ describe("TodoList test suites", () => {
     expect(all[0].completed).toBe(true);
   });
 
+  
+
   test("Checks retrival of overdue items", () => {
     const itemCount = overdue().length;
     // expect(overdue().length).toBe(itemCount)
@@ -54,6 +61,8 @@ describe("TodoList test suites", () => {
     expect(overdue().length).toBe(itemCount + 1);
   });
 
+
+  
   test("Checks retrival of dueToday items", () => {
     const itemCount = dueToday().length;
     // expect(dueToday().length).toBe(itemCount)
@@ -75,6 +84,10 @@ describe("TodoList test suites", () => {
         .toISOString()
         .split("T")[0],
     });
+
+    
     expect(dueLater().length).toBe(itemCount + 1);
+
+    
   });
 });
