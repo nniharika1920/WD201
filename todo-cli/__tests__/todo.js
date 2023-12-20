@@ -1,100 +1,64 @@
 
 
-const todoList = require("../todo");
+
+const todoList = require('../todo');
+let todos
+todos=todoList();
 
 
 
-const { all, add, markAsComplete, overdue, dueToday, dueLater } = todoList();
-
-describe("TodoList test suites", () => {
-  beforeAll(() => {
-    add({
-      title: "Test todo1",
-      completed: false,
-      dueDate: new Date().toISOString().slice(0, 10),
+describe("Todolist", () => {
+    test("Should add new todo", () => {
+        const todoItemsCount = todos.all.length;
+        todos.add(
+            {
+                title: "Todo Test",
+                completed: false,
+                dueDate: 2023-12-18
+            }
+        );
+        expect(todos.all.length).toBe(todoItemsCount + 1);
     });
-    add({
-      title: "Test todo1 yesterday",
-      completed: false,
-      dueDate: new Date(new Date().setDate(new Date().getDate() - 1))
-        .toISOString()
-        .split("T")[0],
-
-
-      
+    test("mark the todo as complete", () => {
+        expect(todos.all[0].completed).toBe(false);
+        todos.markAsComplete(0);
+        expect(todos.all[0].completed).toBe(true);
     });
-    add({
-      title: "Test todo1 tomorrow",
-      completed: false,
-      dueDate: new Date(new Date().setDate(new Date().getDate() + 1))
-        .toISOString()
-        .split("T")[0],
-    });
+    test('The items are overdue', () => {
+    const dateToday = new Date();
+    const formattedDate = (d) => d.toISOString().split('T')[0]
+    const yesterday = formattedDate(new Date(dateToday.setDate(dateToday.getDate() - 1)));
+    const od = {title: 'practise Coding', dueDate: yesterday,completed:false};
+    const overdueic=todos.overdue().length;
+    todos.add(od);
+    const overdueItems=todos.overdue();
+    expect(overdueItems.length).toBe(overdueic+1);
   });
-  
-  test("Checks creating a new todo", () => {
-    const itemCount = all.length;
-
-
-    
-    add({
-      title: "Test todo2",
-      completed: false,
-      dueDate: new Date().toISOString().slice(0, 10),
-    });
-    expect(all.length).toBe(itemCount + 1);
-  });
-
-  test("Checkd markinga a todo as complete", () => {
-    expect(all[0].completed).toBe(false);
-    markAsComplete(0);
-    expect(all[0].completed).toBe(true);
-  });
-
-  
-
-  
-  test("Checks retrival of overdue items", () => {
-    const itemCount = overdue().length;
-    
-    add({
-      title: "Test todo2 yesterday",
-      completed: false,
-      dueDate: new Date(new Date().setDate(new Date().getDate() - 1))
-        .toISOString()
-        .split("T")[0],
-    });
-    expect(overdue().length).toBe(itemCount + 1);
-  });
-
 
 
   
-  test("Checks retrival of dueToday items", () => {
-    const itemCount = dueToday().length;
-   
-    add({
-      title: "Test todo3",
-      completed: false,
-      dueDate: new Date().toISOString().slice(0, 10),
-    });
-    expect(dueToday().length).toBe(itemCount + 1);
+  test('The items are duetoday', () => {
+    const dateToday = new Date();
+    
+    const formattedDate = (d) => d.toISOString().split('T')[0];
+    const today = formattedDate(dateToday);
+    const todayAdd={title: 'Do clothes',dueDate: today,completed:false};
+    const duetic=todos.dueToday().length;
+    todos.add(todayAdd);
+    
+    const todayItems = todos.dueToday();
+    expect(todayItems.length).toBe(duetic+1);
   });
 
-  test("Checks retrival of dueLater items", () => {
-    const itemCount = dueLater().length;
-   
-    add({
-      title: "Test todo2 tomorrow",
-      completed: false,
-      dueDate: new Date(new Date().setDate(new Date().getDate() + 1))
-        .toISOString()
-        .split("T")[0],
-    });
 
-    
-    expect(dueLater().length).toBe(itemCount + 1);
-
-    
+  
+  test('The items are duelater', () => {
+    const dateToday = new Date();
+    const formattedDate = (d) => d.toISOString().split('T')[0];
+    const tomorrow = formattedDate(new Date(dateToday.setDate(dateToday.getDate() + 1)));
+    const dl={title:'Read a book',dueDate:tomorrow,completed:false};
+    const duelaterTodoItemsCount =todos.dueLater().length
+    todos.add(dl);
+    expect(todos.dueLater().length).toBe(duelaterTodoItemsCount+1);
   });
 });
