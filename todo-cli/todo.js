@@ -1,3 +1,6 @@
+
+
+
 const todoList = () => {
     all = [];
     const add = (todoItem) => {
@@ -24,8 +27,7 @@ const todoList = () => {
         return all.filter(item => !item.completed && new Date(item.dueDate) > today);
       }
     const toDisplayableList = (list) => {
-      // Format the To-Do list here, and return the output string
-      // as per the format given above.
+     
       return list
         .map((item) => {
           let checkbox = item.completed ? "[x]" : "[ ]";
@@ -48,10 +50,7 @@ const todoList = () => {
       toDisplayableList,
     };
   };
- 
-  // ####################################### #
-  // DO NOT CHANGE ANYTHING BELOW THIS LINE. #
-  // ####################################### #
+
   
  
 const todos = todoList();
@@ -77,17 +76,24 @@ todos.add({ title: 'Pay electric bill', dueDate: tomorrow, completed: false })
 
 console.log("My Todo-list\n")
 
+
+
 console.log("Overdue")
 var overdues = todos.overdue()
 var formattedOverdues = todos.toDisplayableList(overdues)
 console.log(formattedOverdues)
 console.log("\n")
 
+
+
+
 console.log("Due Today")
 let itemsDueToday = todos.dueToday()
 let formattedItemsDueToday = todos.toDisplayableList(itemsDueToday)
 console.log(formattedItemsDueToday)
 console.log("\n")
+
+
 
 console.log("Due Later")
 let itemsDueLater = todos.dueLater()
